@@ -12,7 +12,7 @@ Public Class frmMain
         Dim strFileName As String
 
         fd.Title = "Select timesheet file"
-        fd.InitialDirectory = "C:\"
+        fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
         fd.FilterIndex = 2
         fd.RestoreDirectory = True
@@ -31,11 +31,27 @@ Public Class frmMain
         xlApp = New Excel.Application
         xlWorkBook = xlApp.Workbooks.Open(strFileName)
         xlWorkSheet = xlWorkBook.Worksheets(1)
+
         'display the cells value B2
         MsgBox(xlWorkSheet.Cells(2, 2).value)
 
+        xlWorkBook.Close()
+        xlApp.Quit()
 
+        releaseObject(xlApp)
+        releaseObject(xlWorkBook)
+        releaseObject(xlWorkSheet)
 
+    End Sub
 
+    Private Sub releaseObject(ByVal obj As Object)
+        Try
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
+            obj = Nothing
+        Catch ex As Exception
+            obj = Nothing
+        Finally
+            GC.Collect()
+        End Try
     End Sub
 End Class
