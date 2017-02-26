@@ -25,11 +25,15 @@ Partial Class frmMain
         Me.btnImportTimesheet = New System.Windows.Forms.Button()
         Me.lblFileName = New System.Windows.Forms.Label()
         Me.lblFileValue = New System.Windows.Forms.Label()
+        Me.prgbrTimes = New System.Windows.Forms.ProgressBar()
+        Me.lblTimesProgress = New System.Windows.Forms.Label()
+        Me.lblProgressRecords = New System.Windows.Forms.Label()
+        Me.btnQuit = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnImportTimesheet
         '
-        Me.btnImportTimesheet.Location = New System.Drawing.Point(82, 42)
+        Me.btnImportTimesheet.Location = New System.Drawing.Point(180, 46)
         Me.btnImportTimesheet.Name = "btnImportTimesheet"
         Me.btnImportTimesheet.Size = New System.Drawing.Size(119, 42)
         Me.btnImportTimesheet.TabIndex = 0
@@ -54,11 +58,49 @@ Partial Class frmMain
         Me.lblFileValue.TabIndex = 2
         Me.lblFileValue.Text = "N/A"
         '
+        'prgbrTimes
+        '
+        Me.prgbrTimes.Location = New System.Drawing.Point(88, 147)
+        Me.prgbrTimes.Name = "prgbrTimes"
+        Me.prgbrTimes.Size = New System.Drawing.Size(347, 30)
+        Me.prgbrTimes.TabIndex = 3
+        '
+        'lblTimesProgress
+        '
+        Me.lblTimesProgress.AutoSize = True
+        Me.lblTimesProgress.Location = New System.Drawing.Point(22, 153)
+        Me.lblTimesProgress.Name = "lblTimesProgress"
+        Me.lblTimesProgress.Size = New System.Drawing.Size(51, 13)
+        Me.lblTimesProgress.TabIndex = 4
+        Me.lblTimesProgress.Text = "Progress:"
+        '
+        'lblProgressRecords
+        '
+        Me.lblProgressRecords.AutoSize = True
+        Me.lblProgressRecords.Location = New System.Drawing.Point(441, 153)
+        Me.lblProgressRecords.Name = "lblProgressRecords"
+        Me.lblProgressRecords.Size = New System.Drawing.Size(24, 13)
+        Me.lblProgressRecords.TabIndex = 5
+        Me.lblProgressRecords.Text = "- / -"
+        '
+        'btnQuit
+        '
+        Me.btnQuit.Location = New System.Drawing.Point(180, 207)
+        Me.btnQuit.Name = "btnQuit"
+        Me.btnQuit.Size = New System.Drawing.Size(119, 42)
+        Me.btnQuit.TabIndex = 6
+        Me.btnQuit.Text = "Quit"
+        Me.btnQuit.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(668, 261)
+        Me.ClientSize = New System.Drawing.Size(505, 261)
+        Me.Controls.Add(Me.btnQuit)
+        Me.Controls.Add(Me.lblProgressRecords)
+        Me.Controls.Add(Me.lblTimesProgress)
+        Me.Controls.Add(Me.prgbrTimes)
         Me.Controls.Add(Me.lblFileValue)
         Me.Controls.Add(Me.lblFileName)
         Me.Controls.Add(Me.btnImportTimesheet)
@@ -72,4 +114,8 @@ Partial Class frmMain
     Friend WithEvents btnImportTimesheet As Button
     Friend WithEvents lblFileName As Label
     Friend WithEvents lblFileValue As Label
+    Friend WithEvents prgbrTimes As ProgressBar
+    Friend WithEvents lblTimesProgress As Label
+    Friend WithEvents lblProgressRecords As Label
+    Friend WithEvents btnQuit As Button
 End Class
