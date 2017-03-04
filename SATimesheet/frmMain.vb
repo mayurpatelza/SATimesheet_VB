@@ -123,9 +123,7 @@ Public Class frmMain
         Dim xlObj As Excel.Range
 
         'exlcude row if completed = false
-        If (String.Compare(CType(xlRange.Cells(iRow, 8), Excel.Range).Value, "False") = 0) Then
-            MsgBox("false")
-        Else
+        If (String.Compare(CType(xlRange.Cells(iRow, 8), Excel.Range).Value, "False") <> 0) Then
             xlObj = CType(xlRange.Cells(iRow, 1), Excel.Range)
             iTargetRow += 1
             xTarget.Cells(iTargetRow, 1) = xlObj
