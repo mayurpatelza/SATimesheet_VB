@@ -49,7 +49,7 @@ Public Class frmMain
         xlTargetApp = New Excel.Application
         xlTargetWorkBook = xlTargetApp.Workbooks.Add()
         xlTargetWorkSheet = xlTargetWorkBook.Worksheets(1)
-        iTargetRow = 0
+        iTargetRow = 1  'account for header row
 
         'display the cells value B2
         'MsgBox(xlSourceWorkSheet.Cells(2, 2).value)
@@ -110,7 +110,18 @@ Public Class frmMain
         iMaxCols = xlRange.Columns.Count
         prgbrTimes.Maximum = iMaxRows
 
-        For xlRow = 1 To xlRange.Rows.Count
+        'setup header row
+        xTarget.Cells(1, 1) = "Old Row No"
+        xTarget.Cells(1, 2) = CType(xlRange.Cells(1, 1), Excel.Range)
+        xTarget.Cells(1, 3) = CType(xlRange.Cells(1, 2), Excel.Range)
+        xTarget.Cells(1, 4) = CType(xlRange.Cells(1, 3), Excel.Range)
+        xTarget.Cells(1, 5) = CType(xlRange.Cells(1, 4), Excel.Range)
+        xTarget.Cells(1, 6) = CType(xlRange.Cells(1, 5), Excel.Range)
+        xTarget.Cells(1, 7) = CType(xlRange.Cells(1, 6), Excel.Range)
+        xTarget.Cells(1, 8) = CType(xlRange.Cells(1, 7), Excel.Range)
+        xTarget.Cells(1, 9) = CType(xlRange.Cells(1, 8), Excel.Range)
+
+        For xlRow = 2 To xlRange.Rows.Count
             prgbrTimes.Value = xlRow
             lblProgressRecords.Text = xlRow & " / " & iMaxRows
             parseTimesheetLine(xlRange, xlRow, iMaxCols, iMaxRows, xSource, xTarget)
@@ -119,14 +130,24 @@ Public Class frmMain
     End Sub
 
     Private Sub parseTimesheetLine(xlRange As Excel.Range, iRow As Integer, iMaxCols As Integer, iMaxRows As Integer, xSource As Excel.Worksheet, xTarget As Excel.Worksheet)
+
         'not sure yet if i need the previous line or the next line to figure out multiple logins and delayed logouts
-        Dim xlObj As Excel.Range
 
         'exlcude row if completed = false
         If (String.Compare(CType(xlRange.Cells(iRow, 8), Excel.Range).Value, "False") <> 0) Then
-            xlObj = CType(xlRange.Cells(iRow, 1), Excel.Range)
             iTargetRow += 1
-            xTarget.Cells(iTargetRow, 1) = xlObj
+
+            'copy all needed columns to new sheet
+            xTarget.Cells(iTargetRow, 1) = iRow
+            xTarget.Cells(iTargetRow, 2) = CType(xlRange.Cells(iRow, 1), Excel.Range)
+            xTarget.Cells(iTargetRow, 3) = CType(xlRange.Cells(iRow, 2), Excel.Range)
+            xTarget.Cells(iTargetRow, 4) = CType(xlRange.Cells(iRow, 3), Excel.Range)
+            xTarget.Cells(iTargetRow, 5) = CType(xlRange.Cells(iRow, 4), Excel.Range)
+            xTarget.Cells(iTargetRow, 6) = CType(xlRange.Cells(iRow, 5), Excel.Range)
+            xTarget.Cells(iTargetRow, 7) = CType(xlRange.Cells(iRow, 6), Excel.Range)
+            xTarget.Cells(iTargetRow, 8) = CType(xlRange.Cells(iRow, 7), Excel.Range)
+            xTarget.Cells(iTargetRow, 9) = CType(xlRange.Cells(iRow, 8), Excel.Range)
+
         End If
 
     End Sub
