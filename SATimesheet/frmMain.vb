@@ -45,17 +45,16 @@ Public Class frmMain
         Dim xlTargetApp As Excel.Application
         Dim xlTargetWorkBook As Excel.Workbook
         Dim xlTargetWorkSheet As Excel.Worksheet
+        Dim xlTargetAuditSheet As Excel.Worksheet
 
         xlTargetApp = New Excel.Application
         xlTargetWorkBook = xlTargetApp.Workbooks.Add()
         xlTargetWorkSheet = xlTargetWorkBook.Worksheets(1)
+        xlTargetAuditSheet = CType(xlTargetWorkBook.Worksheets.Add(), Excel.Worksheet)
+
         iTargetRow = 1  'account for header row
 
-        'display the cells value B2
-        'MsgBox(xlSourceWorkSheet.Cells(2, 2).value)
-        'xlTargetWorkSheet.Cells(1, 1).value = "test"
-
-        parseTimesheet(xlSourceWorkSheet, xlTargetWorkSheet)
+        parseTimesheet(xlSourceWorkSheet, xlTargetWorkSheet, xlTargetAuditSheet)
 
         'Save and close target excel
         Dim iLastIndex = sSourceTimesheet.LastIndexOf("\")
@@ -96,7 +95,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub parseTimesheet(xSource As Excel.Worksheet, xTarget As Excel.Worksheet)
+    Private Sub parseTimesheet(xSource As Excel.Worksheet, xTarget As Excel.Worksheet, xAudit As Excel.Worksheet)
         Dim xlRange As Excel.Range
         Dim xlRow As Integer
         Dim iMaxRows As Integer
@@ -124,12 +123,12 @@ Public Class frmMain
         For xlRow = 2 To xlRange.Rows.Count
             prgbrTimes.Value = xlRow
             lblProgressRecords.Text = xlRow & " / " & iMaxRows
-            parseTimesheetLine(xlRange, xlRow, iMaxCols, iMaxRows, xSource, xTarget)
+            parseTimesheetLine(xlRange, xlRow, iMaxCols, iMaxRows, xSource, xTarget, xAudit)
         Next
 
     End Sub
 
-    Private Sub parseTimesheetLine(xlRange As Excel.Range, iRow As Integer, iMaxCols As Integer, iMaxRows As Integer, xSource As Excel.Worksheet, xTarget As Excel.Worksheet)
+    Private Sub parseTimesheetLine(xlRange As Excel.Range, iRow As Integer, iMaxCols As Integer, iMaxRows As Integer, xSource As Excel.Worksheet, xTarget As Excel.Worksheet, xAudit As Excel.Worksheet)
 
         'not sure yet if i need the previous line or the next line to figure out multiple logins and delayed logouts
 
