@@ -3,6 +3,7 @@
 Public Class frmMain
 
     Dim iTargetRow As Integer
+    Dim iAuditRow As Integer
 
     Private Sub btnImportTimesheet_Click(sender As Object, e As EventArgs) Handles btnImportTimesheet.Click
 
@@ -52,7 +53,8 @@ Public Class frmMain
         xlTargetWorkSheet = xlTargetWorkBook.Worksheets(1)
         xlTargetAuditSheet = CType(xlTargetWorkBook.Worksheets.Add(), Excel.Worksheet)
 
-        iTargetRow = 1  'account for header row
+        iTargetRow = 1  'account for target sheet header row
+        iAuditRow = 1  'account for audit sheet header row
 
         parseTimesheet(xlSourceWorkSheet, xlTargetWorkSheet, xlTargetAuditSheet)
 
@@ -109,7 +111,7 @@ Public Class frmMain
         iMaxCols = xlRange.Columns.Count
         prgbrTimes.Maximum = iMaxRows
 
-        'setup header row
+        'setup header row for target sheet
         xTarget.Cells(1, 1) = "Old Row No"
         xTarget.Cells(1, 2) = CType(xlRange.Cells(1, 1), Excel.Range)
         xTarget.Cells(1, 3) = CType(xlRange.Cells(1, 2), Excel.Range)
@@ -119,6 +121,10 @@ Public Class frmMain
         xTarget.Cells(1, 7) = CType(xlRange.Cells(1, 6), Excel.Range)
         xTarget.Cells(1, 8) = CType(xlRange.Cells(1, 7), Excel.Range)
         xTarget.Cells(1, 9) = CType(xlRange.Cells(1, 8), Excel.Range)
+
+        'setup header row for audit sheet
+        xAudit.Cells(1, 1) = "Old Row No"
+        xAudit.Cells(1, 2) = "Issue / Comment"
 
         For xlRow = 2 To xlRange.Rows.Count
             prgbrTimes.Value = xlRow
@@ -146,6 +152,13 @@ Public Class frmMain
             xTarget.Cells(iTargetRow, 7) = CType(xlRange.Cells(iRow, 6), Excel.Range)
             xTarget.Cells(iTargetRow, 8) = CType(xlRange.Cells(iRow, 7), Excel.Range)
             xTarget.Cells(iTargetRow, 9) = CType(xlRange.Cells(iRow, 8), Excel.Range)
+
+        Else
+            'write line on audit sheet
+            iAuditRow += 1
+            xAudit.Cells(iAuditRow, 1) = iRow
+            xAudit.Cells(iAuditRow, 2) = "Completed is false"
+
 
         End If
 
