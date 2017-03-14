@@ -124,7 +124,15 @@ Public Class frmMain
 
         'setup header row for audit sheet
         xAudit.Cells(1, 1) = "Old Row No"
-        xAudit.Cells(1, 2) = "Issue / Comment"
+        xAudit.Cells(1, 2) = CType(xlRange.Cells(1, 1), Excel.Range)
+        xAudit.Cells(1, 3) = CType(xlRange.Cells(1, 2), Excel.Range)
+        xAudit.Cells(1, 4) = CType(xlRange.Cells(1, 3), Excel.Range)
+        xAudit.Cells(1, 5) = CType(xlRange.Cells(1, 4), Excel.Range)
+        xAudit.Cells(1, 6) = CType(xlRange.Cells(1, 5), Excel.Range)
+        xAudit.Cells(1, 7) = CType(xlRange.Cells(1, 6), Excel.Range)
+        xAudit.Cells(1, 8) = CType(xlRange.Cells(1, 7), Excel.Range)
+        xAudit.Cells(1, 9) = CType(xlRange.Cells(1, 8), Excel.Range)
+        xAudit.Cells(1, 10) = "Issue / Comment"
 
         For xlRow = 2 To xlRange.Rows.Count
             prgbrTimes.Value = xlRow
@@ -157,8 +165,15 @@ Public Class frmMain
             'write line on audit sheet
             iAuditRow += 1
             xAudit.Cells(iAuditRow, 1) = iRow
-            xAudit.Cells(iAuditRow, 2) = "Completed is false"
-
+            xAudit.Cells(iAuditRow, 2) = CType(xlRange.Cells(iRow, 1), Excel.Range)
+            xAudit.Cells(iAuditRow, 3) = CType(xlRange.Cells(iRow, 2), Excel.Range)
+            xAudit.Cells(iAuditRow, 4) = CType(xlRange.Cells(iRow, 3), Excel.Range)
+            xAudit.Cells(iAuditRow, 5) = CType(xlRange.Cells(iRow, 4), Excel.Range)
+            xAudit.Cells(iAuditRow, 6) = CType(xlRange.Cells(iRow, 5), Excel.Range)
+            xAudit.Cells(iAuditRow, 7) = CType(xlRange.Cells(iRow, 6), Excel.Range)
+            xAudit.Cells(iAuditRow, 8) = CType(xlRange.Cells(iRow, 7), Excel.Range)
+            xAudit.Cells(iAuditRow, 9) = CType(xlRange.Cells(iRow, 8), Excel.Range)
+            xAudit.Cells(iAuditRow, 10) = "Completed is false"
 
         End If
 
