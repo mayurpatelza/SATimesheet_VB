@@ -121,6 +121,7 @@ Public Class frmMain
         xTarget.Cells(1, 7) = CType(xlRange.Cells(1, 6), Excel.Range)
         xTarget.Cells(1, 8) = CType(xlRange.Cells(1, 7), Excel.Range)
         xTarget.Cells(1, 9) = CType(xlRange.Cells(1, 8), Excel.Range)
+        xTarget.Cells(1, 10) = "Calculated Hours"
 
         'setup header row for audit sheet
         xAudit.Cells(1, 1) = "Old Row No"
@@ -161,6 +162,10 @@ Public Class frmMain
             xTarget.Cells(iTargetRow, 8) = CType(xlRange.Cells(iRow, 7), Excel.Range)
             xTarget.Cells(iTargetRow, 9) = CType(xlRange.Cells(iRow, 8), Excel.Range)
 
+            'set calculated hours column and format
+            xTarget.Cells(iTargetRow, 10).Formula = "=SUM(" & getColumnFromNumber(7) & iTargetRow & "-" & getColumnFromNumber(5) & iTargetRow & ")"
+            xTarget.Cells(iTargetRow, 10).NumberFormat = "[h]:mm:ss"
+
         Else
             'write line on audit sheet
             iAuditRow += 1
@@ -178,6 +183,21 @@ Public Class frmMain
         End If
 
     End Sub
+
+    Private Function getColumnFromNumber(i As Integer)
+        Dim sCol As String = ""
+
+        Select Case i
+            Case 1 To 26
+                sCol = Convert.ToChar(Convert.ToInt32("A"c) + i - 1).ToString()
+            Case 27 To 52
+                sCol = Convert.ToChar(Convert.ToInt32("a"c) + i - 27).ToString()
+            Case Else
+                sCol = String.Empty
+        End Select
+
+        Return sCol
+    End Function
 
     Private Sub btnQuit_Click(sender As Object, e As EventArgs) Handles btnQuit.Click
         Close()
